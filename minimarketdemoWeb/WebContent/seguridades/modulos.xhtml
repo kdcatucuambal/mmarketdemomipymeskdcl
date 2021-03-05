@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<title>Módulos</title>
+	<h:outputStylesheet library="css" name="primeflex.min.css"
+		target="head" />
+</h:head>
+<body>
+
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="menu"></p:menuitem>
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog">
+					</p:menuitem>
+					<p:menuitem value="Cerrar sesión"
+						action="#{beanSegLogin.actionCerrarSesion()}"
+						icon="pi pi-sign-out">
+					</p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+
+	</h:form>
+
+	<p:panel>
+
+		<p:dataTable value="#{beanSegModulos.listaModulos}" var="m"
+			emptyMessage="There are no registers yet">
+			<p:column headerText="ID">
+				<h:outputText value="#{m.idSegModulo}" />
+			</p:column>
+			<p:column headerText="Nombre">
+				<h:outputText value="#{m.nombreModulo}" />
+			</p:column>
+			<p:column headerText="Ruta">
+				<h:outputText value="#{m.rutaAcceso}" />
+			</p:column>
+			<p:column headerText="Opciones">
+				<p:commandButton title="Editar" icon="pi pi-pencil"></p:commandButton>
+				<p:commandButton title="Eliminar" styleClass="ui-button-danger p-mx-1" icon="pi pi-trash"></p:commandButton>
+			</p:column>
+
+
+		</p:dataTable>
+	</p:panel>
+
+
+
+
+</body>
+</html>

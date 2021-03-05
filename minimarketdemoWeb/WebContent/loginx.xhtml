@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+	<div class="card" align="center">
+
+		<h:form>
+			<p:panel>
+				<p:panelGrid columns="2">
+					<h:outputText value="Cargar Datos" />
+					<p:commandButton
+						update="tables" actionListener="#{beanCanciones.actionLoadCanciones()}"
+						value="Inicializar" icon="pi pi-key"></p:commandButton>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</div>
+
+	<p:panel>
+		<p:dataTable id="tables" value="#{beanCanciones.canciones}" var="c"
+			emptyMessage="There are no registers yet">
+			<p:column headerText="Album">
+				<h:outputText value="#{c.catucuambakAlbum.nombreAlbum}" />
+			</p:column>
+			<p:column headerText="Titulo">
+				<h:outputText value="#{c.tituloCancion}" />
+			</p:column>
+			<p:column headerText="Duración">
+				<h:outputText value="#{c.duracionCancion}" />
+			</p:column>
+			<p:column headerText="Opciones">
+				<p:commandButton title="Editar" icon="pi pi-pencil"></p:commandButton>
+				<p:commandButton title="Eliminar"
+					styleClass="ui-button-danger p-mx-1" icon="pi pi-trash"></p:commandButton>
+			</p:column>
+
+
+		</p:dataTable>
+	</p:panel>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<h:outputStylesheet library="css" name="primeflex.min.css"
+		target="head" />
+</h:head>
+<body>
+
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="menu"></p:menuitem>
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog">
+					</p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out">
+					</p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+
+	</h:form>
+	<h:form>
+		<p:commandButton actionListener="#{beanInventario.openNew()}"
+			oncomplete="PF('manageProductDialog').show()"
+			update=":formnuevo,:dlg1" title="Editar" icon="pi pi-pencil"
+			value="Nuevo"></p:commandButton>
+	</h:form>
+
+	<h:form id="form">
+		<p:panel>
+
+			<p:dataTable value="#{beanInventario.productos}" var="p"
+				emptyMessage="There are no registers yet">
+				<p:column headerText="ID">
+					<h:outputText value="#{p.idProducto}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{p.nombre}" />
+				</p:column>
+				<p:column headerText="Precio">
+					<h:outputText value="#{p.precio}" />
+				</p:column>
+				<p:column headerText="Stock">
+					<h:outputText value="#{beanInventario.calcularStock(p)}" />
+				</p:column>
+				<p:column headerText="Opciones">
+					<p:commandButton oncomplete="PF('manageProductDialog2').show()"
+						actionListener="#{beanInventario.actionSetProducto(p)}"
+						update=":formnuevo2,:dlg2" title="Movimiento"
+						styleClass="ui-button-secondary" icon="pi pi-plus"></p:commandButton>
+					<p:commandButton title="Eliminar"
+						styleClass="ui-button-danger p-mx-1" icon="pi pi-trash"></p:commandButton>
+				</p:column>
+
+
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+	<p:dialog id="dlg1" header="nuevo producto" width="600"
+		showEffect="fade" modal="true" widgetVar="manageProductDialog"
+		responsive="true">
+		<h:form id="formnuevo">
+			<p:messages>
+				<p:autoUpdate />
+			</p:messages>
+			<p:outputPanel class="ui-fluid">
+				<p:outputPanel>
+					<p:graphicImage />
+					<div class="p-field">
+						<p:outputLabel for="nombre">Nombre</p:outputLabel>
+						<p:inputText id="nombre" value="#{beanInventario.producto.nombre}"
+							required="true">
+						</p:inputText>
+					</div>
+					<div class="p-field">
+						<p:outputLabel for="precio">Precio</p:outputLabel>
+						<p:spinner id="precio" value="#{beanInventario.producto.precio}"
+							prefix="$" stepFactor="0.25" min="0" required="true"></p:spinner>
+					</div>
+				</p:outputPanel>
+			</p:outputPanel>
+			<p:commandButton id="saver" value="Save" icon="pi pi-check"
+				actionListener="#{beanInventario.saveProducto()}"
+				update="@this, @form, :form" />
+		</h:form>
+	</p:dialog>
+
+	<p:dialog id="dlg2"
+		header="Stock Producto: #{beanInventario.producto.nombre}" width="600"
+		showEffect="fade" modal="true" widgetVar="manageProductDialog2"
+		responsive="true">
+		<h:form id="formnuevo2">
+			<p:messages>
+				<p:autoUpdate />
+			</p:messages>
+			<p:outputPanel class="ui-fluid">
+				<p:outputPanel>
+					<p:graphicImage />
+					<div class="p-field">
+						<p:outputLabel for="movimiento">Movimiento</p:outputLabel>
+						<p:spinner id="movimiento" value="#{beanInventario.cantidad}"
+							min="#{beanInventario.calcularStock()}" />
+					</div>
+				</p:outputPanel>
+			</p:outputPanel>
+			<p:commandButton id="saver" value="Save" icon="pi pi-check"
+				actionListener="#{beanInventario.saveMovimiento()}"
+				update="@this, @form, :form" />
+		</h:form>
+	</p:dialog>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<h:outputStylesheet library="css" name="primeflex.min.css"
+		target="head" />
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="menu"></p:menuitem>
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog">
+					</p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out">
+					</p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+
+	</h:form>
+
+
+	<!-- <h:form>
+		<p:commandButton actionListener="#{beanCanciones.openNew()}"
+			oncomplete="PF('manageProductDialog').show()"
+			update=":formnuevo,:dlg1" title="Editar" icon="pi pi-pencil"
+			value="Nuevo"></p:commandButton>
+	</h:form> -->
+
+	<!-- <p:growl id="growl" /> -->
+	<h:form id="form">
+
+		<p:panel header="CRUD CANCIONES">
+			<p:dataTable id="tables" value="#{beanCanciones.canciones}" var="c"
+				emptyMessage="There are no registers yet" showGridlines="true"
+				stripedRows="true" size="small" rowKey="#{c.idCancion}"
+				selectionMode="single" allowUnsorting="true" sortMode="single"
+				rows="5" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} canciones"
+				rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+				<f:facet name="header">
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-6">Lista de canciones</div>
+						<div class="ui-g-6 ui-fluid p-d-flex p-jc-end">
+							<div>
+								<p:commandButton actionListener="#{beanCanciones.openNew()}"
+									oncomplete="PF('manageProductDialog').show()"
+									update=":formnuevo,:dlg1" title="Agregar canción"
+									icon="pi pi-plus" inline="false" styleClass="ui-button-success"
+									value="Nuevo"></p:commandButton>
+							</div>
+
+						</div>
+					</div>
+				</f:facet>
+				<p:column class="p-text-center" field="catucuambakAlbum.nombreAlbum"
+					headerText="Album" filterable="true">
+					<h:outputText value="#{c.catucuambakAlbum.nombreAlbum}" />
+
+				</p:column>
+				<p:column class="p-text-center" field="tituloCancion"
+					headerText="Titulo" filterable="true">
+					<h:outputText value="#{c.tituloCancion}" />
+				</p:column>
+				<p:column class="p-text-center" field="duracionCancion"
+					headerText="Duración" filterable="true">
+					<h:outputText value="#{c.duracionCancion}" />
+				</p:column>
+				<p:column class="p-text-center" headerText="Opciones">
+					<p:commandButton oncomplete="PF('manageProductDialog').show()"
+						actionListener="#{beanCanciones.actionSetCancion(c)}"
+						update=":formnuevo,:dlg1" title="Editar"
+						styleClass="ui-button-secondary" icon="pi pi-pencil"></p:commandButton>
+					<p:commandButton
+						actionListener="#{beanCanciones.actionSetCancion(c)}"
+						update="@form" title="Eliminar"
+						oncomplete="PF('deleteProductDialog').show()"
+						styleClass="ui-button-danger p-mx-1" icon="pi pi-trash"></p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade"
+				width="300" message="Eliminar canción?" header="Confirm"
+				severity="warn">
+				<p:commandButton value="Yes" icon="pi pi-check"
+					actionListener="#{beanCanciones.actionDeleteCancion()}"
+					update=":form" oncomplete="PF('deleteProductDialog').hide()" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-button-secondary" icon="pi pi-times"
+					onclick="PF('deleteProductDialog').hide()" />
+			</p:confirmDialog>
+		</p:panel>
+	</h:form>
+
+
+
+
+	<p:dialog id="dlg1" header="#{beanCanciones.valueButton}" width="600"
+		showEffect="fade" modal="true" widgetVar="manageProductDialog"
+		responsive="true">
+		<h:form id="formnuevo">
+			<p:messages>
+				<p:autoUpdate />
+			</p:messages>
+			<p:outputPanel class="ui-fluid">
+				<p:outputPanel>
+					<p:graphicImage />
+					<div class="p-field">
+						<p:outputLabel for="titulo">Titulo</p:outputLabel>
+						<p:inputText id="titulo"
+							value="#{beanCanciones.cancion.tituloCancion}" required="true">
+						</p:inputText>
+					</div>
+					<div class="p-field">
+						<p:outputLabel for="duracion">Duración</p:outputLabel>
+						<p:inputText id="duracion"
+							value="#{beanCanciones.cancion.duracionCancion}" required="true" />
+					</div>
+
+					<div class="p-field">
+						<p:outputLabel for="@next">Album</p:outputLabel>
+						<p:autoComplete id="album" value="#{beanCanciones.txtLike}"
+							forceSelection="true"
+							completeMethod="#{beanCanciones.completeText}" required="true"
+							scrollHeight="250" />
+					</div>
+
+					<div class="p-field">
+						<p:outputLabel for="link">Link</p:outputLabel>
+						<p:inputTextarea id="link" required="true"
+							value="#{beanCanciones.cancion.linkCancion}" />
+					</div>
+				</p:outputPanel>
+			</p:outputPanel>
+			<p:commandButton id="saver" value="Save" icon="pi pi-check"
+				actionListener="#{beanCanciones.saveCancion()}"
+				update="@this, @form, :form" />
+		</h:form>
+	</p:dialog>
+</body>
+</html>

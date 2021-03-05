@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<h:outputStylesheet library="css" name="primeflex.min.css"
+		target="head" />
+</h:head>
+<body>
+
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="/menu"></p:menuitem>
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog">
+					</p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out">
+					</p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+
+	</h:form>
+	<p:panel header="MÓDULO CANCIONES" styleClass="p-mt-3">
+		<h:form>
+			<div class="ui-g p-d-flex p-jc-center p-pt-6">
+				<div class="ui-g-2">
+					<p:panel header="Control de canciones">
+						<p class="p-m-0 p-d-flex p-jc-center">
+							<img class="ui-fluid" style="width: 200px; height: 200px;"
+								src="./images/undraw1.png" alt="" />
+						</p>
+						<f:facet name="footer">
+							<p:commandButton action="#{beanCanciones.actionLoadCanciones()}"
+								icon="pi pi-check" value="Ingresar" />
+						</f:facet>
+					</p:panel>
+				</div>
+				<div class="ui-g-2">
+					<p:panel header="Control de Artistas">
+						<p class="p-m-0 p-d-flex p-jc-center">
+							<img class="ui-fluid" style="width: 200px; height: 200px;"
+								src="./images/undraw2.png" alt="" />
+
+						</p>
+						<f:facet name="footer">
+							<p:commandButton action="#{beanArtistas.actionLoadAutores()}"
+								icon="pi pi-check" value="Ingresar" />
+						</f:facet>
+					</p:panel>
+				</div>
+				<div class="ui-g-2">
+					<p:panel header="Control de albums">
+						<p class="p-m-0 p-d-flex p-jc-center">
+							<img class="ui-fluid" style="width: 200px; height: 200px;"
+								src="./images/undraw3.png" alt="" />
+
+						</p>
+
+						<f:facet name="footer">
+							<p:commandButton action="#{beanAlbums.actionLoadAlbums()}"
+								icon="pi pi-check" value="Ingresar" />
+						</f:facet>
+					</p:panel>
+				</div>
+			</div>
+		</h:form>
+	</p:panel>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:head>
+	<h:outputStylesheet library="css" name="primeflex.min.css"
+		target="head" />
+</h:head>
+
+<body>
+	<div class="ui-g p-d-flex p-jc-center p-ai-center p-pt-6">
+
+		<div class="ui-g-4">
+			<p:growl>
+				<p:autoUpdate></p:autoUpdate>
+			</p:growl>
+			<h:form>
+				<p:panel class="p-text-center" header="INICIAR SESIÓN">
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-12">
+							<div class="ui-inputgroup">
+								<span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+								<p:inputText value="#{beanSegLogin.idSegUsuario}"
+									placeholder="Ingrese su usuario" />
+							</div>
+						</div>
+						<div class="ui-g-12">
+							<div class="ui-inputgroup">
+								<span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
+								<p:password value="#{beanSegLogin.clave}"
+									placeholder="Ingrese su contraseña" />
+							</div>
+						</div>
+						<div class="ui-g-12">
+							<p:commandButton icon="pi pi-check" iconPos="" value="Acceder"
+								action="#{beanSegLogin.actionLogin()}">
+							</p:commandButton>
+						</div>
+					</div>
+				</p:panel>
+				
+			</h:form>
+
+		</div>
+	</div>
+
+	<!-- 	<div class="p-grid">
+		<div class="ui-g-2" style="background-color: red">2</div>
+		<div class="ui-g-6" style="background-color: yellow">6</div>
+		<div class="ui-g-4" style="background-color: green">4</div>
+	</div> -->
+
+
+	<!-- 	<div class="p-d-flex p-jc-center"> -->
+	<!-- 		<p:card style="width: 25rem; margin-bottom: 2em"> -->
+	<!-- 			<f:facet name="title">INICIAR SESIÓN</f:facet> -->
+	<!-- 		</p:card> -->
+	<!-- 	</div> -->
+
+	<!-- 	<div style="background-color: gray;" class="p-d-flex">Flex -->
+	<!-- 		Container</div> -->
+	<!-- 	<div style="background-color: navy;" class="p-d-inline-flex">Inline -->
+	<!-- 		Flex Container</div> -->
+
+
+
+
+</body>
+</html>

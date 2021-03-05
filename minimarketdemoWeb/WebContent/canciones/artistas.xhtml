@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+	<f:event listener="#{beanSegLogin.actionVerificarLogin()}"
+		type="preRenderView"></f:event>
+</f:metadata>
+<h:head>
+	<h:outputStylesheet library="css" name="primeflex.min.css"
+		target="head" />
+</h:head>
+<body>
+	<p:growl>
+		<p:autoUpdate />
+	</p:growl>
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Regresar" icon="pi pi-home" action="menu"></p:menuitem>
+			<f:facet name="options">
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil" icon="pi pi-cog">
+					</p:menuitem>
+					<p:menuitem value="Cerrar sesión" icon="pi pi-sign-out">
+					</p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+
+	</h:form>
+
+
+	<!-- <h:form>
+		<p:commandButton actionListener="#{beanCanciones.openNew()}"
+			oncomplete="PF('manageProductDialog').show()"
+			update=":formnuevo,:dlg1" title="Editar" icon="pi pi-pencil"
+			value="Nuevo"></p:commandButton>
+	</h:form> -->
+
+	<!-- <p:growl id="growl" /> -->
+	<h:form id="form">
+
+		<p:panel header="CRUD AUTORES">
+			<p:dataTable id="tables" value="#{beanArtistas.autores}" var="a"
+				emptyMessage="There are no registers yet" showGridlines="true"
+				stripedRows="true" size="small" rowKey="#{c.idCancion}"
+				selectionMode="single" allowUnsorting="true" sortMode="single"
+				rows="5" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} autores"
+				rowsPerPageTemplate="5,10,{ShowAll|'All'}">
+				<f:facet name="header">
+
+					<div class="ui-g ui-fluid">
+						<div class="ui-g-6">Lista de autores</div>
+						<div class="ui-g-6 ui-fluid p-d-flex p-jc-end">
+							<div>
+								<p:commandButton actionListener="#{beanArtistas.openNew()}"
+									oncomplete="PF('manageProductDialog').show()"
+									update=":formnuevo,:dlg1" title="Agregar autor"
+									icon="pi pi-plus" inline="false" styleClass="ui-button-success"
+									value="Nuevo"></p:commandButton>
+							</div>
+
+						</div>
+					</div>
+				</f:facet>
+				<p:column class="p-text-center" headerText="foto" filterable="true">
+					<p:graphicImage url="#{a.fotoAutor}" library="demo"
+						style="width: 100px; height: 100px" />
+				</p:column>
+				<p:column class="p-text-center" field="idAutor" headerText="Id"
+					filterable="true">
+					<h:outputText value="#{a.idAutor}" />
+
+				</p:column>
+				<p:column class="p-text-center" field="nombreAutor"
+					headerText="Nombre" filterable="true">
+					<h:outputText value="#{a.nombreAutor}" />
+				</p:column>
+				<p:column class="p-text-center" field="paisAutor" headerText="País"
+					filterable="true">
+					<h:outputText value="#{a.paisAutor}" />
+				</p:column>
+
+
+				<p:column class="p-text-center" headerText="Opciones">
+					<p:commandButton oncomplete="PF('manageProductDialog').show()"
+						actionListener="#{beanArtistas.actionSetAutor(a)}"
+						update=":formnuevo,:dlg1" title="Editar"
+						styleClass="ui-button-secondary" icon="pi pi-pencil"></p:commandButton>
+					<p:commandButton actionListener="#{beanArtistas.actionSetAutor(a)}"
+						update="@form" title="Eliminar"
+						oncomplete="PF('deleteProductDialog').show()"
+						styleClass="ui-button-danger p-mx-1" icon="pi pi-trash"></p:commandButton>
+					<p:commandButton oncomplete="PF('cancionesDialog').show()"
+						actionListener="#{beanArtistas.actionSetAutor(a)}" update=":view"
+						title="Ver álbums" styleClass="ui-button-warning" icon="pi pi-eye"></p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade"
+				width="300" message="Eliminar artista?" header="Confirm"
+				severity="warn">
+				<p:commandButton value="Yes" icon="pi pi-check"
+					actionListener="#{beanArtistas.actionDeleteAutor()}" update=":form"
+					oncomplete="PF('deleteProductDialog').hide()" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-button-secondary" icon="pi pi-times"
+					onclick="PF('deleteProductDialog').hide()" />
+			</p:confirmDialog>
+		</p:panel>
+	</h:form>
+
+	<p:dialog id="view" header="Artista #{beanArtistas.autor.nombreAutor}"
+		width="600" showEffect="fade" modal="true" widgetVar="cancionesDialog">
+		<div class="card p-shadow-1 p-text-center p-my-5 p-py-1">
+			<h1>
+				<h:outputLabel value="#{beanArtistas.autor.nombreAutor}" />
+			</h1>
+
+			<p:graphicImage url="#{beanArtistas.autor.fotoAutor}" library="demo"
+				style="width: 200px; height: 200px" />
+			<h2 class="p-my-2">
+				<h:outputLabel value="#{beanArtistas.autor.paisAutor}" />
+			</h2>
+		</div>
+
+		<p:dataTable value="#{beanArtistas.autor.catucuambakAlbums}" var="a">
+			<f:facet name="header">Listado de albums</f:facet>
+			<p:column headerText="Album">
+				<h:outputText value="#{a.nombreAlbum}" />
+			</p:column>
+
+			<p:column headerText="Año">
+				<h:outputText value="#{a.anioAlbum}" />
+			</p:column>
+
+			<p:column headerText="Género">
+				<h:outputText value="#{a.generoAlbum}" />
+			</p:column>
+		</p:dataTable>
+
+	</p:dialog>
+
+
+	<p:dialog id="dlg1" header="#{beanArtistas.valueButton}" width="600"
+		showEffect="fade" modal="true" widgetVar="manageProductDialog"
+		responsive="true">
+		<h:form id="formnuevo">
+			<p:messages>
+				<p:autoUpdate />
+			</p:messages>
+			<p:outputPanel class="ui-fluid">
+				<p:outputPanel>
+					<p:graphicImage />
+					<div class="p-field">
+						<p:outputLabel for="nombre">Nombre</p:outputLabel>
+						<p:inputText id="nombre" value="#{beanArtistas.autor.nombreAutor}"
+							required="true">
+						</p:inputText>
+					</div>
+					<div class="p-field">
+						<p:outputLabel for="pais">País</p:outputLabel>
+						<p:inputText id="pais" value="#{beanArtistas.autor.paisAutor}"
+							required="true" />
+					</div>
+
+					<div class="p-field">
+						<p:outputLabel for="foto">Link Foto</p:outputLabel>
+						<p:inputTextarea id="foto" required="true"
+							value="#{beanArtistas.autor.fotoAutor}" />
+					</div>
+				</p:outputPanel>
+			</p:outputPanel>
+			<p:commandButton id="saver" value="Save" icon="pi pi-check"
+				actionListener="#{beanArtistas.saveAutor()}"
+				update="@this, @form, :form" />
+		</h:form>
+	</p:dialog>
+</body>
+</html>

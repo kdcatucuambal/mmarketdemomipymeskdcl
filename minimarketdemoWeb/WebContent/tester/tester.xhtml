@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+
+	<h:form>
+		<p:commandButton value="Click"
+			actionListener="#{beanTester.editText()}" update="display, display2"></p:commandButton>
+		<h:outputText id="display" value="#{beanTester.value}" />
+	</h:form>
+	<h:outputText id="display2" value="#{beanTester.value}" />
+
+
+
+
+	<h:form>
+		<div class="ui-g ui-fluid">
+			<div class="ui-g-4">
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+					<p:inputText placeholder="id" value="#{beanTester.newUser.id}" />
+				</div>
+			</div>
+			<div class="ui-g-4">
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+					<p:inputText placeholder="username"
+						value="#{beanTester.newUser.name}" />
+				</div>
+			</div>
+			<div class="ui-g-4">
+				<div class="ui-inputgroup">
+					<span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+					<p:inputText placeholder="lastname"
+						value="#{beanTester.newUser.lastname}" />
+				</div>
+			</div>
+		</div>
+		<p:commandButton actionListener="#{beanTester.actionCreateUser()}"
+			update=":formusers:tblusers" value="Crear"></p:commandButton>
+	</h:form>
+
+	<br />
+	<p:panel>
+		<h:form id="formusers">
+			<p:dataTable id="tblusers" value="#{beanTester.users}" var="u"
+				emptyMessage="There are no registers yet">
+				<p:column headerText="ID">
+					<h:outputText value="#{u.id}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{u.name}" />
+				</p:column>
+				<p:column headerText="Apellido">
+					<h:outputText value="#{u.lastname}" />
+				</p:column>
+				<p:column headerText="Opciones">
+					<p:commandButton title="Editar" icon="pi pi-pencil"></p:commandButton>
+					<p:commandButton title="Eliminar"
+						styleClass="ui-button-danger p-mx-1" icon="pi pi-trash"></p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:panel>
+
+
+
+</body>
+</html>

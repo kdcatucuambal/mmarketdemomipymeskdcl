@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+
+	<h:form>
+
+		<p:menubar>
+			<f:facet name="options">
+
+				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
+					icon="pi pi-user">
+					<p:menuitem value="Perfil">
+					</p:menuitem>
+					<p:menuitem value="Cerrar sesión" action="#{beanSegLogin.actionCerrarSesion()}">
+					</p:menuitem>
+				</p:menuButton>
+			</f:facet>
+		</p:menubar>
+
+	</h:form>
+
+
+	<h1>WELCOME</h1>
+
+	<h:form>
+		<p:dataTable value="#{beanSegLogin.loginDTO.listaModulos}"
+			var="modulo" emptyMessage="No tiene módulos asignados">
+			<p:column>
+				<p:commandLink
+					action="#{beanSegLogin.actionMenu(modulo.rutaAcceso)}">
+					<h:outputText value="#{modulo.nombreModulo}" />
+				</p:commandLink>
+			</p:column>
+			<p:column>
+				<h:outputText value="#{modulo.rutaAcceso}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+</body>
+</html>
