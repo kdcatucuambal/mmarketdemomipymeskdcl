@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="css" name="primeflex.min.css"
+		target="head" />
+</h:head>
+<body style="margin: 0px">
+
+	<!-- 	<div class="ui-g">
+		<div class="ui-g-2 p-m-0 p-p-0">
+			<h:form>
+				<p:growl id="messages" showDetail="true" />
+				<div class="card" style="height: 100vh">
+					<p:menu style="height: 100vh;">
+						<p:submenu label="PARMA ERP">
+							<p:menuitem value="Save (Non-Ajax)" update="messages"
+								ajax="false" icon="pi pi-save" />
+							<p:menuitem value="Update" update="messages" icon="pi pi-refresh" />
+							<p:menuitem value="Delete" update="messages" icon="pi pi-times" />
+						</p:submenu>
+						<p:submenu label="Usuario">
+							<p:menuitem value="Cerrar sesión" url="http://www.primefaces.org"
+								icon="pi pi-external-link" />
+							<p:menuitem value="Mi perfil" icon="pi pi-upload" />
+						</p:submenu>
+					</p:menu>
+				</div>
+			</h:form>
+		</div>
+		
+	</div> -->
+
+	<p:panelGrid columns="3" cellpadding="2" >
+		<p:commandButton value="INVENTARIO"
+			styleClass="ui-button-danger p-p-6"></p:commandButton>
+		<p:commandButton value="CLIENTES"
+			styleClass="ui-button-secondary p-p-6" />
+		<p:commandButton value="SEGURIDADES"
+			styleClass="ui-button-success p-p-6" />
+		<p:commandButton value="FACTURACIÓN" styleClass="ui-button-info p-p-6" />
+		<p:commandButton value="PEDIDOS" icon="pi pi-times"  styleClass="ui-button-warning p-p-6" />
+		<p:commandButton value="RECURSOS HUMANOS"
+			styleClass="ui-button-help p-p-6" />
+	</p:panelGrid>
+
+
+
+</body>
+</html>

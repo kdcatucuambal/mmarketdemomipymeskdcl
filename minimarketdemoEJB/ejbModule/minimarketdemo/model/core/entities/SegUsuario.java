@@ -42,6 +42,10 @@ public class SegUsuario implements Serializable {
 	@OneToMany(mappedBy="segUsuario")
 	private List<SegAsignacion> segAsignacions;
 
+	//bi-directional many-to-one association to ThmEmpleado
+	@OneToMany(mappedBy="segUsuario")
+	private List<ThmEmpleado> thmEmpleados;
+
 	public SegUsuario() {
 	}
 
@@ -121,6 +125,28 @@ public class SegUsuario implements Serializable {
 		segAsignacion.setSegUsuario(null);
 
 		return segAsignacion;
+	}
+
+	public List<ThmEmpleado> getThmEmpleados() {
+		return this.thmEmpleados;
+	}
+
+	public void setThmEmpleados(List<ThmEmpleado> thmEmpleados) {
+		this.thmEmpleados = thmEmpleados;
+	}
+
+	public ThmEmpleado addThmEmpleado(ThmEmpleado thmEmpleado) {
+		getThmEmpleados().add(thmEmpleado);
+		thmEmpleado.setSegUsuario(this);
+
+		return thmEmpleado;
+	}
+
+	public ThmEmpleado removeThmEmpleado(ThmEmpleado thmEmpleado) {
+		getThmEmpleados().remove(thmEmpleado);
+		thmEmpleado.setSegUsuario(null);
+
+		return thmEmpleado;
 	}
 
 }

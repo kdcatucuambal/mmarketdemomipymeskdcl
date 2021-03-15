@@ -11,8 +11,7 @@ public class LoginDTO {
 	private String correo;
 	private List<SegModulo> listaModulos;
 	public LoginDTO() {
-		this.listaModulos = new ArrayList<SegModulo>();
-		
+		this.listaModulos = new ArrayList<SegModulo>();	
 	}
 	public int getIdSegUsuario() {
 		return idSegUsuario;

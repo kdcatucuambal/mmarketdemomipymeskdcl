@@ -7,12 +7,9 @@
 
 <h:head></h:head>
 <body>
-
 	<h:form>
-
 		<p:menubar>
 			<f:facet name="options">
-
 				<p:menuButton value="#{beanSegLogin.loginDTO.correo}"
 					icon="pi pi-user">
 					<p:menuitem value="Perfil">
@@ -22,22 +19,18 @@
 				</p:menuButton>
 			</f:facet>
 		</p:menubar>
-
 	</h:form>
-
-
 	<h1>WELCOME</h1>
-
 	<h:form>
 		<p:dataTable value="#{beanSegLogin.loginDTO.listaModulos}"
 			var="modulo" emptyMessage="No tiene módulos asignados">
-			<p:column>
+			<p:column headerText="Módulo">
 				<p:commandLink
 					action="#{beanSegLogin.actionMenu(modulo.rutaAcceso)}">
 					<h:outputText value="#{modulo.nombreModulo}" />
 				</p:commandLink>
 			</p:column>
-			<p:column>
+			<p:column headerText="Ruta">
 				<h:outputText value="#{modulo.rutaAcceso}" />
 			</p:column>
 		</p:dataTable>

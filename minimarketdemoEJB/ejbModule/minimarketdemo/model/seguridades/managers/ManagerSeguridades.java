@@ -155,6 +155,10 @@ public class ManagerSeguridades {
 		return mDAO.findAll(SegUsuario.class, "apellidos");
 	}
 
+	public SegUsuario findByIdSegUsuario(int idSegUsuario) throws Exception {
+		return (SegUsuario) mDAO.findById(SegUsuario.class, idSegUsuario);
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<SegModulo> findAllModulos() {
 		return mDAO.findAll(SegModulo.class, "nombreModulo");
